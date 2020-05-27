@@ -1,0 +1,22 @@
+
+.image__list{
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap:0.2rem 0.6rem;
+  grid-auto-rows: 0.6;
+  justify-items: center;
+  padding-bottom: 2rem;
+}
+/*
+.image__list--item{
+
+  
+
+}*/
+.image__list img{
+    width: 100%;
+    height: auto;
+   
+   
+}
