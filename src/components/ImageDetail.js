@@ -2,6 +2,8 @@ import React from 'react'
 import './ImageDetail.css'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+
+
 class ImageDetail extends React.Component {
 
 
@@ -61,10 +63,10 @@ class ImageDetail extends React.Component {
         return (
             <div>
                  <ReactCSSTransitionGroup          
-                 transitionName="fade"          
-                 transitionEnterTimeout={500}          
-                 transitionLeaveTimeout={300}>
-                     {this.checkImage()}
+                    transitionName="fade"          
+                    transitionEnterTimeout={500}          
+                    transitionLeaveTimeout={300}>
+                    {this.checkImage()}
                  </ReactCSSTransitionGroup>
                 
             </div>
