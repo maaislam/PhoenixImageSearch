@@ -8,10 +8,11 @@ import unsplash from '../api/unsplash';
 import ImageList from './ImageList';
 import Pagination from './Pagination';
 import LoadingAnim from './LoadingAnim'
+import ImageDetail from './ImageDetail';
 
 class App extends React.Component {
 
-    state = {images: [], errorMessage: '', totalResults: 0, currentPage:1, searchTerm: '',loading:false};
+    state = {images: [], errorMessage: '', totalResults: 0, currentPage:1, searchTerm: '',loading:false, selectedImage:null};
 
     
      onSearchQuerry =  async(term) => {
@@ -66,9 +67,18 @@ class App extends React.Component {
         }
 
 
-};
+    };
 
-    
+    onImageSelect = (image) => {
+
+        this.setState({selectedImage:image});
+        console.log(image);
+
+    };
+
+    closeModal= ()=>{
+        this.setState({selectedImage:null}); 
+    }
 
     renderContent = () => {
 
@@ -76,7 +86,7 @@ class App extends React.Component {
             return(
               
                     
-            <ImageList images = {this.state.images}/>  
+            <ImageList images = {this.state.images} onImageSelect = {this.onImageSelect}/>  
                 
             )
         }else if(this.state.errorMessage){
@@ -97,11 +107,16 @@ class App extends React.Component {
     render() {
             const numberOfPages = Math.floor(50 / 20);
         return (
-            <div className = "ui container" style = {{marginTop: '50px'}}>
-                <SearchBar onEnterPress = {this.onSearchQuerry} onSearchClick = {this.onSearchQuerry}/>
+            <div >
+                <ImageDetail showImage = {this.state.selectedImage} closeModal = {this.closeModal}/>
+                <div style = {{padding:'0 5rem'}}>
                 
-                {this.renderContent()}
-                {this.state.totalResults > 20 ? <Pagination pages={numberOfPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
+                    <SearchBar onEnterPress = {this.onSearchQuerry} onSearchClick = {this.onSearchQuerry}/>
+                    
+                    {this.renderContent()}
+
+                    {this.state.totalResults > 20 ? <Pagination pages={numberOfPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
+                </div>
             </div>
         );
     }

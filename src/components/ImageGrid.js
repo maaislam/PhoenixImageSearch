@@ -23,10 +23,18 @@ class ImageGrid extends React.Component {
 
         this.setState({span})
     }
+    onImageClick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        
+        this.props.onImageSelect(this.props.image);
+        
+    };
 
     render() {
         return (
-            <div style = {{gridRowEnd: `span ${this.state.span}`}}>
+            <div style = {{gridRowEnd: `span ${this.state.span}`}} onClick = {this.onImageClick}>
                 <img 
                 src={this.props.image.urls.regular} 
                 alt={this.props.image.description}

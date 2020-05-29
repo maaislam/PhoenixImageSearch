@@ -3,7 +3,7 @@ import React from 'react';
 
 class SearchBar extends React.Component {
 
-    state = {searchTerm: '', loading:null}
+    state = {searchTerm: ''}
 
     onInputChange = (event) =>{
 
@@ -26,7 +26,7 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <div className="ui segment fluid action input">
+            <div className="ui segment fluid action input" style ={{marginTop: '50px' }}>
                 
                 <input 
                     type="text" 

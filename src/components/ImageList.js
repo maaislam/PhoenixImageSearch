@@ -7,14 +7,13 @@ import ImageGrid from './ImageGrid';
 
 class ImageList extends React.Component {
 
-    testFunction = () => {
+    renderList = () => {
 
-        const images = this.props.images.map(image => 
+        return this.props.images.map(image => 
 
-           <ImageGrid image = {image} key = {image.id} />
-        );
+             <ImageGrid image = {image} key = {image.id} onImageSelect = {this.props.onImageSelect}/>
+         );
         
-        return images;
 
     }
     
@@ -24,7 +23,7 @@ class ImageList extends React.Component {
         return (
            
             <div className = "image__list">
-                {this.testFunction()}
+                {this.renderList()}
             </div>
         );
     };
