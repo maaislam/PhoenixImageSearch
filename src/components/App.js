@@ -98,7 +98,7 @@ class App extends React.Component {
         }else if (this.state.loading){
             return(
             <div>
-            <LoadingAnim message = "Please Wait Fetching Images"/>
+            <LoadingAnim message = "Please Wait We're Fetching Images"/>
             </div>
             )
         }
