@@ -4,16 +4,17 @@ import React from 'react';
 
 class ImageGrid extends React.Component {
 
-
+   
     constructor(props){
         super(props);
 
         this.imageRef = React.createRef();
-        this.state = {span: 0};
+        this.state = {span: 0, animationType:'hide'};
     }
 
     componentDidMount(){
         this.imageRef.current.addEventListener('load', this.setSpans);
+        this.imageRef.current.addEventListener('load', this.onImageLoad);
     }
 
     setSpans = () =>{
@@ -32,10 +33,27 @@ class ImageGrid extends React.Component {
         
     };
 
+   
+    onImageLoad = () => {
+       
+        this.setState({
+            animationType:'puff-in-center'
+        });
+        
+             this.props.onImageReady();
+        
+       
+       
+    };
+
+
     render() {
+
+
         return (
-            <div style = {{gridRowEnd: `span ${this.state.span}`}} onClick = {this.onImageClick}>
-                <img 
+            <div className={this.state.animationType} style = {{gridRowEnd: `span ${this.state.span}`, position: 'relative'}} onClick = {this.onImageClick}>
+                <img
+                
                 src={this.props.image.urls.regular} 
                 alt={this.props.image.description}
                 ref={this.imageRef} />

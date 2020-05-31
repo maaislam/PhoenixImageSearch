@@ -1,13 +1,12 @@
 import React from 'react'
 import './ImageDetail.css'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 
 class ImageDetail extends React.Component {
 
 
-    
+    state = {modal:'fade-out'};
 
     testFunction = () =>{
 
@@ -16,6 +15,17 @@ class ImageDetail extends React.Component {
       }else {
           return 'huge'
       }
+    }
+
+    changeState = () =>{
+
+        if(this.props.showImage){
+             this.setState({
+                modal:'fade-in'
+            });
+            return 
+        }
+       
     }
 
 
@@ -28,8 +38,12 @@ class ImageDetail extends React.Component {
                 </div>
             )
         }else {
+           
             return(
-                <div key={this.props.showImage.id} className = "test1"  onClick = {this.closeBtn}>
+                
+                
+                
+                <div key={this.props.showImage.id} className = {` ${this.state.modal} test1`} onLoad = {this.changeState} onClick = {this.closeBtn}>
                     <div className = "test" onClick = {this.closeBtn}>
                         <div className = "ui center aligned segment img__modal">
                             <div style = {{textAlign:'right',cursor:'pointer', color:'rgb(141, 141, 141)'}}><i className = "cls-icon big x icon"></i></div>
@@ -40,36 +54,43 @@ class ImageDetail extends React.Component {
                         <h2 className = "center aligned">{this.props.showImage.alt_description}</h2>
                         </div>  
                     </div>
-                </div>   
+                </div>
+                
+                
             );
+            
         }
 
 
     }
-
 
     closeBtn = (event) => {
         
         if(event.target.matches('.test, .x')){
-         
-        this.props.closeModal();
-            
-        }
-    }
+            this.setState({
+                modal:'fade-out'
+              }, () => {
+                setTimeout( () => {
+                this.props.closeModal();
+                }, 500);
+              });
 
+          }
+        
+          
+        }
 
 
     render() {
+
         return (
-            <div>
-                 <ReactCSSTransitionGroup          
-                    transitionName="fade"          
-                    transitionEnterTimeout={500}          
-                    transitionLeaveTimeout={300}>
-                    {this.checkImage()}
-                 </ReactCSSTransitionGroup>
+
+
+           <div>
+                {this.checkImage()}
                 
-            </div>
+           </div>
+
         )
     }
 }

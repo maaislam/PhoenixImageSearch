@@ -1,0 +1,25 @@
+
+.search-container{
+    margin-top: 50px !important; 
+    background-color:#282C34 !important;
+}
+
+input{
+
+    background-Color:black !important;
+    color:white !important;
+}
+
+input::selection {
+    background: #ffffff; /* WebKit/Blink Browsers */
+  }
+ input::-moz-selection {
+    background: #ffffff; /* Gecko Browsers */
+  }
+
+
+
+.search-btn{
+  background: linear-gradient(to bottom, #00d2ff, #3a7bd5) !important; 
+  color:white;
+}

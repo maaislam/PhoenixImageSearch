@@ -12,12 +12,16 @@ import ImageDetail from './ImageDetail';
 
 class App extends React.Component {
 
-    state = {images: [], errorMessage: '', totalResults: 0, currentPage:1, searchTerm: '',loading:false, selectedImage:null};
+    state = {images: [], errorMessage: '', totalResults: 0, currentPage:1, searchTerm: '', loading:false, selectedImage:null, imageReady:null};
 
+
+
+
+    
     
      onSearchQuerry =  async(term) => {
         
-                this.setState({loading:true,currentPage:1});
+                this.setState({loading:true,currentPage:1, imageReady:false});
                 
                 try{
                    
@@ -45,7 +49,7 @@ class App extends React.Component {
     
     
     nextPage = async(pageNumber) => {
-        this.setState({loading:true});
+        this.setState({loading:true, imageReady:false});
         try{
             
             const response = await unsplash.get('/search/photos', {
@@ -76,17 +80,24 @@ class App extends React.Component {
 
     };
 
+    onImageReady = () => {
+
+        if(!this.state.loading){
+           this.setState({imageReady:true})
+        }
+    }
+
     closeModal= ()=>{
         this.setState({selectedImage:null}); 
     }
 
     renderContent = () => {
 
-        if(this.state.images && !this.state.errorMessage && !this.state.loading){
+        if(this.state.images && !this.state.errorMessage && !this.state.loading ){
             return(
               
                     
-            <ImageList images = {this.state.images} onImageSelect = {this.onImageSelect}/>  
+            <ImageList images = {this.state.images} onImageSelect = {this.onImageSelect} onImageReady = {this.onImageReady}/>  
                 
             )
         }else if(this.state.errorMessage){
@@ -95,7 +106,7 @@ class App extends React.Component {
               <PopupMessage ErrorMsg = {` ${this.state.errorMessage}`} />
             </div>
             )
-        }else if (this.state.loading){
+        }else if (this.state.loading || this.state.imageReady===false){
             return(
             <div>
             <LoadingAnim message = "Please Wait We're Fetching Images"/>
@@ -107,8 +118,8 @@ class App extends React.Component {
     render() {
             const numberOfPages = Math.floor(50 / 20);
         return (
-            <div >
-                <ImageDetail showImage = {this.state.selectedImage} closeModal = {this.closeModal}/>
+            <div>
+                <ImageDetail showImage = {this.state.selectedImage} openModal = {true} closeModal = {this.closeModal}/>
                 <div style = {{padding:'0 5rem'}}>
                 
                     <SearchBar onEnterPress = {this.onSearchQuerry} onSearchClick = {this.onSearchQuerry}/>
@@ -117,6 +128,7 @@ class App extends React.Component {
 
                     {this.state.totalResults > 20 ? <Pagination pages={numberOfPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
                 </div>
+                
             </div>
         );
     }

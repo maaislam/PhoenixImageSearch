@@ -1,5 +1,6 @@
 
 import React from 'react';
+import './SearchBar.css'
 
 class SearchBar extends React.Component {
 
@@ -26,7 +27,7 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <div className="ui segment fluid action input" style ={{marginTop: '50px' }}>
+            <div className="ui segment fluid action input search-container">
                 
                 <input 
                     type="text" 
@@ -35,7 +36,7 @@ class SearchBar extends React.Component {
                     onChange = {this.onInputChange}
                     onKeyUp = {this.onKeyPress}>      
                 </input>
-                <div onClick = {this.onButtonClick} className="ui button">Search</div>
+                <div onClick = {this.onButtonClick} className="ui button search-btn">Search</div>
             </div>
         );
     }
